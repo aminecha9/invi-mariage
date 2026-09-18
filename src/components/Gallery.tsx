@@ -27,16 +27,24 @@ const galleryPhotos: PhotoItem[] = [
     id: "photo-2",
     src: photo2,
     title: "فرحتنا اليوم",
-    titleEn: "Engagement Day",
-    caption: "واليوم بنبدأ مع بعض خطوتنا الأولى نحو المستقبل والأبد",
-    tag: "Now • خطوبتنا",
+    titleEn: "Wedding Day",
+    caption: "واليوم نحتفل معًا ببداية حياتنا نحو المستقبل والأبد",
+    tag: "Now • زفافنا",
   },
 ];
 
 // Ornate Classic Floral Divider SVG
 const OrnateFloralDivider = ({ className = "" }: { className?: string }) => (
-  <div className={`flex items-center justify-center gap-2 sm:gap-3 ${className}`}>
-    <svg width="45" height="16" viewBox="0 0 100 30" fill="none" className="text-brand-accent/70 rotate-180 sm:w-[60px] sm:h-[20px]">
+  <div
+    className={`flex items-center justify-center gap-2 sm:gap-3 ${className}`}
+  >
+    <svg
+      width="45"
+      height="16"
+      viewBox="0 0 100 30"
+      fill="none"
+      className="text-brand-accent/70 rotate-180 sm:w-[60px] sm:h-[20px]"
+    >
       <path
         d="M10 15 C 30 15, 45 5, 60 15 C 75 25, 90 15, 100 15 M 40 15 C 45 8, 55 8, 60 15 C 55 22, 45 22, 40 15 Z"
         stroke="currentColor"
@@ -50,7 +58,13 @@ const OrnateFloralDivider = ({ className = "" }: { className?: string }) => (
 
     <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rotate-45 border border-brand-accent bg-brand-accent/20"></div>
 
-    <svg width="45" height="16" viewBox="0 0 100 30" fill="none" className="text-brand-accent/70 sm:w-[60px] sm:h-[20px]">
+    <svg
+      width="45"
+      height="16"
+      viewBox="0 0 100 30"
+      fill="none"
+      className="text-brand-accent/70 sm:w-[60px] sm:h-[20px]"
+    >
       <path
         d="M10 15 C 30 15, 45 5, 60 15 C 75 25, 90 15, 100 15 M 40 15 C 45 8, 55 8, 60 15 C 55 22, 45 22, 40 15 Z"
         stroke="currentColor"
@@ -147,7 +161,11 @@ export default function Gallery() {
               >
                 <Heart
                   size={14}
-                  className={liked[photo.id] ? "fill-rose-500 text-rose-500" : "text-brand-secondary"}
+                  className={
+                    liked[photo.id]
+                      ? "fill-rose-500 text-rose-500"
+                      : "text-brand-secondary"
+                  }
                 />
                 <span className="tabular-nums">{likes[photo.id]}</span>
               </motion.button>
@@ -251,7 +269,11 @@ export default function Gallery() {
                 >
                   <Heart
                     size={14}
-                    className={liked[selectedPhoto.id] ? "fill-rose-500 text-rose-500" : "text-brand-secondary"}
+                    className={
+                      liked[selectedPhoto.id]
+                        ? "fill-rose-500 text-rose-500"
+                        : "text-brand-secondary"
+                    }
                   />
                   <span>{likes[selectedPhoto.id]}</span>
                 </motion.button>

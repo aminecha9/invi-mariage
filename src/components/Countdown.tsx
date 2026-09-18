@@ -61,7 +61,7 @@ function Separator() {
 }
 
 export default function Countdown() {
-  const targetDate = new Date("2026-09-25T19:00:00").getTime();
+  const targetDate = new Date("2026-10-31T19:00:00").getTime();
 
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -80,7 +80,9 @@ export default function Countdown() {
       }
       return {
         days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        hours: Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+        ),
         minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
         seconds: Math.floor((distance % (1000 * 60)) / 1000),
       };
@@ -102,9 +104,15 @@ export default function Countdown() {
   ];
 
   return (
-    <div className="flex justify-center items-start gap-1.5 xs:gap-2.5 sm:gap-4 md:gap-6 mt-4 z-10 max-w-full px-2" dir="ltr">
+    <div
+      className="flex justify-center items-start gap-1.5 xs:gap-2.5 sm:gap-4 md:gap-6 mt-4 z-10 max-w-full px-2"
+      dir="ltr"
+    >
       {units.map((unit, index) => (
-        <div key={unit.label} className="flex items-start gap-1.5 xs:gap-2.5 sm:gap-4 md:gap-6">
+        <div
+          key={unit.label}
+          className="flex items-start gap-1.5 xs:gap-2.5 sm:gap-4 md:gap-6"
+        >
           <FlipDigit {...unit} />
           {index < units.length - 1 && <Separator />}
         </div>

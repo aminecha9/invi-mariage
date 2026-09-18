@@ -1,17 +1,36 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { 
-  BookHeart, ChevronLeft, ChevronRight, BookOpen, Heart, 
-  Users, UserCheck, MessageSquare, Download, Copy, Check, 
-  Search, Trash2, ArrowRight, Sparkles, Filter
+import {
+  BookHeart,
+  ChevronLeft,
+  ChevronRight,
+  BookOpen,
+  Heart,
+  Users,
+  UserCheck,
+  MessageSquare,
+  Download,
+  Copy,
+  Check,
+  Search,
+  Trash2,
+  ArrowRight,
+  Sparkles,
+  Filter,
 } from "lucide-react";
 import { getMessages, formatArabicDate } from "../utils/guestbookStorage";
 import type { GuestMessage } from "../utils/guestbookStorage";
-import { getRSVPs, deleteRSVP, exportRSVPsToCSV, getRSVPSummary, type RSVPEntry } from "../utils/rsvpStorage";
+import {
+  getRSVPs,
+  deleteRSVP,
+  exportRSVPsToCSV,
+  getRSVPSummary,
+  type RSVPEntry,
+} from "../utils/rsvpStorage";
 
 export default function PrivateGuestbook() {
   const [activeTab, setActiveTab] = useState<"rsvp" | "book">("rsvp");
-  
+
   // RSVP State
   const [rsvps, setRsvps] = useState<RSVPEntry[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -42,8 +61,13 @@ export default function PrivateGuestbook() {
   // Statistics calculation
   const stats = useMemo(() => {
     const totalSubmissions = rsvps.length;
-    const totalGuestsCount = rsvps.reduce((acc, curr) => acc + (Number(curr.guests) || 1), 0);
-    const totalWithWishes = rsvps.filter((item) => item.message && item.message.trim().length > 0).length;
+    const totalGuestsCount = rsvps.reduce(
+      (acc, curr) => acc + (Number(curr.guests) || 1),
+      0,
+    );
+    const totalWithWishes = rsvps.filter(
+      (item) => item.message && item.message.trim().length > 0,
+    ).length;
     return {
       totalSubmissions,
       totalGuestsCount,
@@ -54,9 +78,10 @@ export default function PrivateGuestbook() {
   // Filtered RSVPs
   const filteredRSVPs = useMemo(() => {
     if (!searchQuery.trim()) return rsvps;
-    return rsvps.filter((item) =>
-      item.name.toLowerCase().includes(searchQuery.toLowerCase().trim()) ||
-      item.message.toLowerCase().includes(searchQuery.toLowerCase().trim())
+    return rsvps.filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase().trim()) ||
+        item.message.toLowerCase().includes(searchQuery.toLowerCase().trim()),
     );
   }, [rsvps, searchQuery]);
 
@@ -69,11 +94,12 @@ export default function PrivateGuestbook() {
 
   const handleCopyList = () => {
     const lines = [
-      `💍 كشف حضور خطوبة رشاد وإسراء 💍`,
+      `💍 كشف حضور زفاف محمد أمين وآمنة 💍`,
       `إجمالي الحضور المتوقع: ${stats.totalGuestsCount} فرد (${stats.totalSubmissions} تأكيد)`,
       `────────────────────────────`,
-      ...rsvps.map((entry, index) => 
-        `${index + 1}. ${entry.name} (${entry.guests === 1 ? "فرد واحد" : `${entry.guests} أفراد`})${entry.message ? ` — "${entry.message}"` : ""}`
+      ...rsvps.map(
+        (entry, index) =>
+          `${index + 1}. ${entry.name} (${entry.guests === 1 ? "فرد واحد" : `${entry.guests} أفراد`})${entry.message ? ` — "${entry.message}"` : ""}`,
       ),
     ];
     navigator.clipboard.writeText(lines.join("\n"));
@@ -172,7 +198,11 @@ export default function PrivateGuestbook() {
               transition={{ type: "spring", delay: 0.3 }}
               className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-brand-accent/10 border-2 border-brand-accent/40 flex items-center justify-center mb-6 sm:mb-8"
             >
-              <BookHeart size={30} className="text-brand-accent" strokeWidth={1.2} />
+              <BookHeart
+                size={30}
+                className="text-brand-accent"
+                strokeWidth={1.2}
+              />
             </motion.div>
 
             <motion.div
@@ -185,14 +215,17 @@ export default function PrivateGuestbook() {
               </h1>
               <div className="w-20 sm:w-24 h-[1px] bg-brand-accent/60 mx-auto mb-4 sm:mb-6" />
               <p className="font-serif text-xl sm:text-3xl text-brand-primary italic mb-1 sm:mb-2">
-                Rashad & Esraa
+                Amine & Emna
               </p>
               <p className="font-calligraphy text-lg sm:text-xl text-brand-accent mt-2 sm:mt-4">
-                رشاد و إسراء
+                أمين و آمنة
               </p>
               <div className="w-20 sm:w-24 h-[1px] bg-brand-accent/60 mx-auto mt-4 sm:mt-6 mb-3 sm:mb-4" />
-              <p className="font-sans text-[10px] sm:text-xs text-brand-secondary tracking-[0.3em] uppercase font-bold" dir="ltr">
-                25 September 2026
+              <p
+                className="font-sans text-[10px] sm:text-xs text-brand-secondary tracking-[0.3em] uppercase font-bold"
+                dir="ltr"
+              >
+                31 October 2026
               </p>
             </motion.div>
 
@@ -230,7 +263,12 @@ export default function PrivateGuestbook() {
             <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 w-12 sm:w-16 h-12 sm:h-16 border-r-2 border-b-2 border-brand-accent/50" />
             <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 w-12 sm:w-16 h-12 sm:h-16 border-l-2 border-b-2 border-brand-accent/50" />
 
-            <Heart size={36} className="text-brand-accent/60 mb-4 sm:mb-6" strokeWidth={1} fill="currentColor" />
+            <Heart
+              size={36}
+              className="text-brand-accent/60 mb-4 sm:mb-6"
+              strokeWidth={1}
+              fill="currentColor"
+            />
 
             <h2 className="font-calligraphy text-2xl sm:text-3xl text-brand-primary mb-3 sm:mb-4">
               شكراً لكل كلمة حلوة
@@ -270,13 +308,20 @@ export default function PrivateGuestbook() {
         transition={pageTransition}
         className="book-page book-inner-page"
       >
-        <div className="flex flex-col h-full p-5 sm:p-8 md:p-10 relative" dir="rtl">
+        <div
+          className="flex flex-col h-full p-5 sm:p-8 md:p-10 relative"
+          dir="rtl"
+        >
           <div className="absolute top-3.5 right-3.5 w-8 sm:w-10 h-8 sm:h-10 border-r border-t border-brand-accent/30" />
           <div className="absolute bottom-3.5 left-3.5 w-8 sm:w-10 h-8 sm:h-10 border-l border-b border-brand-accent/30" />
 
           <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
             <div className="flex-1 h-[1px] bg-gradient-to-l from-brand-accent/40 to-transparent" />
-            <Heart size={12} className="text-brand-accent/50" fill="currentColor" />
+            <Heart
+              size={12}
+              className="text-brand-accent/50"
+              fill="currentColor"
+            />
             <div className="flex-1 h-[1px] bg-gradient-to-r from-brand-accent/40 to-transparent" />
           </div>
 
@@ -306,7 +351,11 @@ export default function PrivateGuestbook() {
           <div className="mt-auto pt-4 sm:pt-6">
             <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
               <div className="flex-1 h-[1px] bg-gradient-to-l from-brand-accent/40 to-transparent" />
-              <Heart size={10} className="text-brand-accent/40" fill="currentColor" />
+              <Heart
+                size={10}
+                className="text-brand-accent/40"
+                fill="currentColor"
+              />
               <div className="flex-1 h-[1px] bg-gradient-to-r from-brand-accent/40 to-transparent" />
             </div>
             <p className="font-arabic text-[11px] sm:text-xs text-brand-secondary text-center">
@@ -340,7 +389,7 @@ export default function PrivateGuestbook() {
             Private Dashboard
           </div>
           <div className="font-arabic text-xs text-brand-secondary font-semibold">
-            رشاد وإسراء 💍
+            محمد أمين وآمنة 💍
           </div>
         </div>
       </header>
@@ -383,7 +432,10 @@ export default function PrivateGuestbook() {
           className="w-full max-w-4xl flex flex-col items-center z-10"
         >
           {/* KPI Stats Bento Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 w-full mb-6 sm:mb-8" dir="rtl">
+          <div
+            className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 w-full mb-6 sm:mb-8"
+            dir="rtl"
+          >
             {/* KPI 1: Total Guests */}
             <div className="bg-gradient-to-br from-brand-accent/15 via-white/95 to-brand-faint/90 backdrop-blur-md border-2 border-brand-accent/40 rounded-2xl p-5 shadow-sm flex items-center justify-between">
               <div>
@@ -391,7 +443,10 @@ export default function PrivateGuestbook() {
                   إجمالي الحضور المتوقع
                 </div>
                 <div className="text-3xl sm:text-4xl font-sans font-bold text-brand-primary tabular-nums">
-                  {stats.totalGuestsCount} <span className="text-base font-arabic font-normal text-brand-accent">فرد</span>
+                  {stats.totalGuestsCount}{" "}
+                  <span className="text-base font-arabic font-normal text-brand-accent">
+                    فرد
+                  </span>
                 </div>
               </div>
               <div className="w-12 h-12 rounded-2xl bg-brand-accent/15 border border-brand-accent/30 flex items-center justify-center text-brand-accent">
@@ -406,7 +461,10 @@ export default function PrivateGuestbook() {
                   عدد التأكيدات (المدعوين)
                 </div>
                 <div className="text-3xl sm:text-4xl font-sans font-bold text-brand-primary tabular-nums">
-                  {stats.totalSubmissions} <span className="text-base font-arabic font-normal text-brand-secondary">تأكيد</span>
+                  {stats.totalSubmissions}{" "}
+                  <span className="text-base font-arabic font-normal text-brand-secondary">
+                    تأكيد
+                  </span>
                 </div>
               </div>
               <div className="w-12 h-12 rounded-2xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center text-brand-primary">
@@ -421,7 +479,10 @@ export default function PrivateGuestbook() {
                   رسائل وتهاني مرفقة
                 </div>
                 <div className="text-3xl sm:text-4xl font-sans font-bold text-brand-primary tabular-nums">
-                  {stats.totalWithWishes} <span className="text-base font-arabic font-normal text-brand-secondary">رسالة</span>
+                  {stats.totalWithWishes}{" "}
+                  <span className="text-base font-arabic font-normal text-brand-secondary">
+                    رسالة
+                  </span>
                 </div>
               </div>
               <div className="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-500">
@@ -431,10 +492,16 @@ export default function PrivateGuestbook() {
           </div>
 
           {/* Action Bar & Search */}
-          <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 mb-6" dir="rtl">
+          <div
+            className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 mb-6"
+            dir="rtl"
+          >
             {/* Search Box */}
             <div className="relative w-full sm:w-72">
-              <Search size={16} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-brand-secondary pointer-events-none" />
+              <Search
+                size={16}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-brand-secondary pointer-events-none"
+              />
               <input
                 type="text"
                 value={searchQuery}
@@ -450,7 +517,11 @@ export default function PrivateGuestbook() {
                 onClick={handleCopyList}
                 className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-white/90 border border-brand-border/60 rounded-xl font-arabic text-xs font-bold text-brand-primary hover:bg-brand-accent hover:text-white hover:border-brand-accent transition-all duration-300 shadow-xs cursor-pointer"
               >
-                {copied ? <Check size={15} className="text-green-600" /> : <Copy size={15} />}
+                {copied ? (
+                  <Check size={15} className="text-green-600" />
+                ) : (
+                  <Copy size={15} />
+                )}
                 <span>{copied ? "تم النسخ بنجاح" : "نسخ القائمة"}</span>
               </button>
 
@@ -468,12 +539,19 @@ export default function PrivateGuestbook() {
           <div className="w-full flex flex-col gap-3" dir="rtl">
             {filteredRSVPs.length === 0 ? (
               <div className="w-full bg-white/80 border border-brand-border/50 rounded-2xl p-10 text-center shadow-xs">
-                <Users size={36} className="text-brand-secondary/40 mx-auto mb-3" />
+                <Users
+                  size={36}
+                  className="text-brand-secondary/40 mx-auto mb-3"
+                />
                 <h4 className="font-arabic text-base font-bold text-brand-primary mb-1">
-                  {searchQuery ? "لم يتم العثور على نتائج مطابقة للبحث" : "لا توجد تأكيدات حضور مسجلة بعد"}
+                  {searchQuery
+                    ? "لم يتم العثور على نتائج مطابقة للبحث"
+                    : "لا توجد تأكيدات حضور مسجلة بعد"}
                 </h4>
                 <p className="font-arabic text-xs text-brand-secondary">
-                  {searchQuery ? "جرّب البحث باسم آخر" : "شارك رابط الدعوة مع المدعوين لتظهر تأكيداتهم هنا فوراً"}
+                  {searchQuery
+                    ? "جرّب البحث باسم آخر"
+                    : "شارك رابط الدعوة مع المدعوين لتظهر تأكيداتهم هنا فوراً"}
                 </p>
               </div>
             ) : (
@@ -495,10 +573,14 @@ export default function PrivateGuestbook() {
                         <h4 className="font-arabic text-base sm:text-lg font-bold text-brand-primary">
                           {entry.name}
                         </h4>
-                        
+
                         <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-arabic font-bold bg-brand-accent/15 text-brand-accent border border-brand-accent/30">
                           <Users size={12} />
-                          <span>{entry.guests === 1 ? "شخص واحد" : `${entry.guests} أفراد`}</span>
+                          <span>
+                            {entry.guests === 1
+                              ? "شخص واحد"
+                              : `${entry.guests} أفراد`}
+                          </span>
                         </span>
                       </div>
 
@@ -586,8 +668,8 @@ export default function PrivateGuestbook() {
                 {currentPage === 0
                   ? "الغلاف"
                   : currentPage === totalPages - 1
-                  ? "النهاية"
-                  : `صفحة ${currentPage}`}
+                    ? "النهاية"
+                    : `صفحة ${currentPage}`}
               </p>
               <p className="font-sans text-[9px] sm:text-[10px] text-brand-secondary tracking-wider uppercase mt-0.5">
                 {currentPage + 1} / {totalPages}

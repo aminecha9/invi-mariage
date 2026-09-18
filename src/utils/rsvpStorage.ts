@@ -20,7 +20,11 @@ export function getRSVPs(): RSVPEntry[] {
   }
 }
 
-export function saveRSVP(name: string, guests: number, message: string = ""): RSVPEntry {
+export function saveRSVP(
+  name: string,
+  guests: number,
+  message: string = "",
+): RSVPEntry {
   const newEntry: RSVPEntry = {
     id: `rsvp-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     name: name.trim(),
@@ -58,8 +62,13 @@ export function deleteRSVP(id: string): boolean {
 export function getRSVPSummary() {
   const rsvps = getRSVPs();
   const totalSubmissions = rsvps.length;
-  const totalGuestsCount = rsvps.reduce((sum, item) => sum + (Number(item.guests) || 1), 0);
-  const totalWithWishes = rsvps.filter((item) => item.message.trim().length > 0).length;
+  const totalGuestsCount = rsvps.reduce(
+    (sum, item) => sum + (Number(item.guests) || 1),
+    0,
+  );
+  const totalWithWishes = rsvps.filter(
+    (item) => item.message.trim().length > 0,
+  ).length;
 
   return {
     totalSubmissions,
@@ -72,7 +81,7 @@ export function getRSVPSummary() {
 export function exportRSVPsToCSV(): void {
   const rsvps = getRSVPs();
   const headers = ["الاسم", "عدد الحضور", "رسالة التهنئة", "تاريخ التأكيد"];
-  
+
   const rows = rsvps.map((entry) => [
     `"${entry.name.replace(/"/g, '""')}"`,
     entry.guests,
@@ -80,12 +89,14 @@ export function exportRSVPsToCSV(): void {
     `"${new Date(entry.timestamp).toLocaleString("ar-EG")}"`,
   ]);
 
-  const csvContent = "\uFEFF" + [headers.join(","), ...rows.map((e) => e.join(","))].join("\r\n");
+  const csvContent =
+    "\uFEFF" +
+    [headers.join(","), ...rows.map((e) => e.join(","))].join("\r\n");
   const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = `كشف-حضور-خطوبة-رشاد-وإسراء-${new Date().toISOString().slice(0, 10)}.csv`;
+  link.download = `كشف-حضور-زفاف-محمد-أمين-وآمنة-${new Date().toISOString().slice(0, 10)}.csv`;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

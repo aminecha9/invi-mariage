@@ -13,16 +13,20 @@ export default function Invitation() {
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] as const } 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] as const },
     },
   };
 
   const cornerVariants = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 0.95, scale: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] as const } },
+    visible: {
+      opacity: 0.95,
+      scale: 1,
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] as const },
+    },
   };
 
   return (
@@ -40,9 +44,8 @@ export default function Invitation() {
         animate="visible"
         className="absolute bottom-0 left-0 w-16 h-16 sm:w-32 sm:h-32 md:w-56 md:h-56 border-l-2 sm:border-l-[3px] border-b-2 sm:border-b-[3px] border-brand-border m-3 sm:m-6 md:m-8 origin-bottom-left pointer-events-none"
       />
-      
+
       <div className="max-w-4xl w-full px-4 sm:px-6 pt-12 sm:pt-20 md:pt-24 flex flex-col items-center text-center z-10">
-        
         {/* Quranic Intro Section */}
         <motion.div
           variants={fadeInUp}
@@ -55,7 +58,8 @@ export default function Invitation() {
             بسم الله الرحمن الرحيم
           </div>
           <p className="font-arabic text-lg sm:text-2xl md:text-3xl text-brand-primary leading-relaxed sm:leading-loose font-bold">
-            "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً"
+            "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا
+            لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً"
           </p>
           <p className="font-arabic text-xs sm:text-sm text-brand-secondary mt-5 tracking-[0.15em] font-bold">
             — صدق الله العظيم —
@@ -74,20 +78,23 @@ export default function Invitation() {
             CELEBRATE
           </span>
 
-          <h2 className="font-arabic text-base sm:text-xl text-brand-primary font-extrabold tracking-[0.2em] mb-8 sm:mb-12 uppercase" dir="rtl">
+          <h2
+            className="font-arabic text-base sm:text-xl text-brand-primary font-extrabold tracking-[0.2em] mb-8 sm:mb-12 uppercase"
+            dir="rtl"
+          >
             نتشرف بدعوتكم لحضور حفل خطوبتنا
           </h2>
-          
+
           <div className="relative inline-block w-full max-w-lg mt-2 sm:mt-6">
             <Sparkles count={18} />
             <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold leading-none text-brand-primary z-10 block relative tracking-tight">
-              Rashad
+              Amine
             </h1>
             <span className="text-3xl sm:text-5xl font-serif italic font-normal text-brand-accent block my-3 sm:my-6 relative z-10">
               &amp;
             </span>
             <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold leading-none text-brand-primary z-10 block relative tracking-tight">
-              Esraa
+              Emna
             </h1>
           </div>
         </motion.div>
@@ -106,18 +113,18 @@ export default function Invitation() {
 
           {/* Arabic Date */}
           <h3 className="font-arabic text-2xl sm:text-4xl font-bold text-brand-primary mb-2">
-            الجمعة، ٢٥ سبتمبر ٢٠٢٦
+            السبت، ٣١ أكتوبر ٢٠٢٦
           </h3>
 
           {/* English Date with strict LTR isolation */}
-          <p 
-            dir="ltr" 
+          <p
+            dir="ltr"
             style={{ direction: "ltr", unicodeBidi: "isolate" }}
             className="text-lg sm:text-2xl font-serif italic text-brand-accent font-semibold mb-8 sm:mb-12"
           >
-            Friday, September 25, 2026
+            Saturday, October 31, 2026
           </p>
-          
+
           <Countdown />
         </motion.div>
 
@@ -174,39 +181,43 @@ export default function Invitation() {
           dir="rtl"
         >
           <div className="flex items-center gap-4 mb-8 justify-center bg-white/70 backdrop-blur-xs border border-brand-border/40 px-5 py-3 rounded-2xl shadow-xs">
-             <div className="w-11 h-11 rounded-full bg-brand-accent/10 border border-brand-accent/30 flex items-center justify-center text-brand-accent shrink-0">
-               <MapPin size={22} strokeWidth={1.5} />
-             </div>
-             <div className="text-right" dir="ltr">
-                <div className="text-[10px] uppercase tracking-widest font-sans font-extrabold text-brand-secondary">The Venue</div>
-                <div className="text-sm font-sans font-bold text-brand-primary mt-0.5">نادى ستار كلوب، شبرا الخيمة</div>
-             </div>
+            <div className="w-11 h-11 rounded-full bg-brand-accent/10 border border-brand-accent/30 flex items-center justify-center text-brand-accent shrink-0">
+              <MapPin size={22} strokeWidth={1.5} />
+            </div>
+            <div className="text-right" dir="ltr">
+              <div className="text-[10px] uppercase tracking-widest font-sans font-extrabold text-brand-secondary">
+                The Venue
+              </div>
+              <div className="text-sm font-sans font-bold text-brand-primary mt-0.5">
+                فضاء مريم، صفاقس
+              </div>
+            </div>
           </div>
 
           <p className="font-arabic text-lg sm:text-2xl text-brand-primary font-medium mb-8 leading-relaxed max-w-lg px-4">
-            بكل الحب ننتظركم لتشاركونا فرحتنا يوم الجمعة ٢٥ سبتمبر ٢٠٢٦،
+            بكل الحب ننتظركم لتشاركونا فرحتنا يوم السبت ٣١ أكتوبر ٢٠٢٦،
             <br />
-            في نادى ستار كلوب، كورنيش النيل، شبرا الخيمة.
+            في فضاء مريم، صفاقس، طريق المهدية، كم ١٠، تونس.
           </p>
 
           {/* Map */}
           <div className="w-full max-w-2xl h-64 sm:h-80 md:h-96 bg-brand-bg relative mb-8 border border-brand-border/60 overflow-hidden rounded-2xl shadow-md">
             <div className="absolute inset-0 border-[6px] sm:border-[10px] border-brand-bg/30 z-10 pointer-events-none rounded-2xl"></div>
-            <iframe 
+            <iframe
               title="موقع الحفل على الخريطة"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3451.5!2d31.2475!3d30.1285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z469Q%2BVRV!5e0!3m2!1sen!2seg!4v1700000000000!5m2!1sen!2seg" 
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen={true} 
-              loading="lazy" 
+              src="https://www.google.com/maps?q=Complexe+Mariem,+Sfax,+Mahdia+Road,+KM+10,+Tunisia&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen={true}
+              loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               className="grayscale contrast-125 opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700 w-full h-full"
             />
           </div>
 
-          <a 
-            href="https://www.google.com/maps/search/469Q%2BVRV+شبرا+الخيمة" 
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Complexe+Mariem%2C+Sfax%2C+Mahdia+Road%2C+KM+10%2C+Tunisia"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 px-8 sm:px-10 py-3.5 sm:py-4 bg-brand-primary text-brand-bg text-[11px] sm:text-xs uppercase tracking-[0.25em] font-sans font-bold hover:bg-brand-accent transition-all duration-300 rounded-full shadow-md hover:shadow-xl"
@@ -218,9 +229,9 @@ export default function Invitation() {
 
         {/* Guestbook */}
         <Guestbook />
-        
+
         {/* Footer */}
-        <motion.div 
+        <motion.div
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
@@ -237,7 +248,6 @@ export default function Invitation() {
             عقبال عندكم جميعاً 💕
           </p>
         </motion.div>
-
       </div>
 
       {/* RSVP Modal */}
