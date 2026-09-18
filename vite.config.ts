@@ -5,7 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: process.env.VERCEL ? '/' : (process.env.BASE_PATH || '/invi-mariage/'),
+    base: process.env.VERCEL ? '/' : (process.env.BASE_PATH || '/Engagement/'),
     assetsInclude: ['**/*.mpeg'],
     plugins: [react(), tailwindcss()],
     resolve: {
