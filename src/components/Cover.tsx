@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import Sparkles from "./Sparkles";
 import ringsBg from "../assets/rings.png";
 import type { Key } from "react";
+import { useLanguage } from "../i18n";
 
 interface CoverProps {
   key?: Key;
@@ -35,6 +36,8 @@ const cornerVariants = {
 };
 
 export default function Cover({ onOpen }: CoverProps) {
+  const { language, toggleLanguage, text } = useLanguage();
+
   return (
     <motion.div
       className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden font-serif bg-cover bg-center bg-no-repeat"
@@ -47,6 +50,16 @@ export default function Cover({ onOpen }: CoverProps) {
         transition: { duration: 0.9, ease: "easeInOut" },
       }}
     >
+      <motion.button
+        type="button"
+        onClick={toggleLanguage}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="absolute top-5 right-5 sm:top-8 sm:right-8 z-30 rounded-full border border-brand-border/60 bg-white/70 px-4 py-2 text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary shadow-sm backdrop-blur-md transition-colors hover:bg-brand-primary hover:text-brand-bg cursor-pointer"
+        aria-label={language === "ar" ? "Passer au français" : "Passer à l'arabe"}
+      >
+        {language === "ar" ? "FR" : "AR"}
+      </motion.button>
       {/* Responsive Decorative Corners */}
       <motion.div
         variants={cornerVariants}
@@ -81,7 +94,7 @@ export default function Cover({ onOpen }: CoverProps) {
             variants={itemVariants}
             className="font-arabic text-base sm:text-xl text-brand-primary mb-4 sm:mb-6 font-extrabold tracking-[0.2em] uppercase"
           >
-            دعوة زفاف
+            {text("دعوة زفاف", "Invitation de mariage")}
           </motion.h2>
 
           {/* Main Names */}
@@ -117,7 +130,7 @@ export default function Cover({ onOpen }: CoverProps) {
             onClick={onOpen}
             className="px-8 sm:px-12 py-3.5 sm:py-4 bg-brand-primary text-brand-bg text-[11px] sm:text-xs uppercase tracking-[0.3em] font-sans font-bold hover:bg-brand-accent transition-all duration-300 z-20 rounded-full shadow-lg hover:shadow-xl cursor-pointer border-none outline-none"
           >
-            افتح الدعوة
+            {text("افتح الدعوة", "Ouvrir l'invitation")}
           </motion.button>
         </motion.div>
       </div>

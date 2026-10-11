@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { X, UserCheck, Users, MessageSquare, Sparkles, Send } from "lucide-react";
+import {
+  X,
+  UserCheck,
+  Users,
+  MessageSquare,
+  Sparkles,
+  Send,
+} from "lucide-react";
 import { saveRSVP } from "../utils/rsvpStorage";
 import { saveMessage } from "../utils/guestbookStorage";
+import { useLanguage } from "../i18n";
 
 interface RSVPData {
   name: string;
@@ -16,6 +24,7 @@ interface RSVPModalProps {
 }
 
 export default function RSVPModal({ isOpen, onClose }: RSVPModalProps) {
+  const { text } = useLanguage();
   const [formData, setFormData] = useState<RSVPData>({
     name: "",
     guests: 1,
@@ -96,33 +105,43 @@ export default function RSVPModal({ isOpen, onClose }: RSVPModalProps) {
                   {/* Header */}
                   <div className="text-center mb-6 sm:mb-8">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-brand-accent/10 border border-brand-accent/30 flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                      <UserCheck size={22} className="text-brand-accent" strokeWidth={1.5} />
+                      <UserCheck
+                        size={22}
+                        className="text-brand-accent"
+                        strokeWidth={1.5}
+                      />
                     </div>
                     <h3 className="font-serif text-xl sm:text-2xl font-bold text-brand-primary mb-0.5">
                       RSVP
                     </h3>
                     <p className="font-arabic text-base sm:text-lg text-brand-accent font-bold">
-                      أكّد حضورك
+                      {text("أكّد حضورك", "Confirmer ma présence")}
                     </p>
                     <p className="font-arabic text-xs sm:text-sm text-brand-secondary mt-1.5 max-w-xs mx-auto">
-                      يسعدنا تأكيدكم لحضور حفل خطوبتنا
+                      {text("يسعدنا تأكيدكم لحضور حفل زواجنا", "Nous serons heureux de vous compter parmi nous")}
                     </p>
                   </div>
 
                   {/* Form */}
-                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5" dir="rtl">
+                  <form
+                    onSubmit={handleSubmit}
+                    className="space-y-4 sm:space-y-5"
+                    dir="rtl"
+                  >
                     {/* Name */}
                     <div>
                       <label className="flex items-center gap-2 text-xs font-sans font-bold uppercase tracking-widest text-brand-secondary mb-1.5">
                         <UserCheck size={14} />
-                        <span>الاسم الكريم</span>
+                        <span>{text("الاسم الكريم", "Nom complet")}</span>
                       </label>
                       <input
                         type="text"
                         required
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="أدخل اسمك الكريم"
+                        onChange={(e) =>
+                          setFormData({ ...formData, name: e.target.value })
+                        }
+                        placeholder={text("أدخل اسمك الكريم", "Entrez votre nom")}
                         className="w-full px-4 py-2.5 sm:py-3 bg-white/90 border border-brand-border/50 rounded-xl font-arabic text-base sm:text-sm text-brand-primary placeholder:text-brand-border focus:outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition-all"
                       />
                     </div>
@@ -131,16 +150,23 @@ export default function RSVPModal({ isOpen, onClose }: RSVPModalProps) {
                     <div>
                       <label className="flex items-center gap-2 text-xs font-sans font-bold uppercase tracking-widest text-brand-secondary mb-1.5">
                         <Users size={14} />
-                        <span>عدد المرافقين</span>
+                        <span>{text("عدد المرافقين", "Nombre d'accompagnants")}</span>
                       </label>
                       <select
                         value={formData.guests}
-                        onChange={(e) => setFormData({ ...formData, guests: Number(e.target.value) })}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            guests: Number(e.target.value),
+                          })
+                        }
                         className="w-full px-4 py-2.5 sm:py-3 bg-white/90 border border-brand-border/50 rounded-xl font-arabic text-base sm:text-sm text-brand-primary focus:outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition-all cursor-pointer"
                       >
                         {[1, 2, 3, 4, 5].map((n) => (
                           <option key={n} value={n}>
-                            {n === 1 ? "شخص واحد" : `${n} أشخاص`}
+                            {n === 1
+                              ? text("شخص واحد", "1 personne")
+                              : text(`${n} أشخاص`, `${n} personnes`)}
                           </option>
                         ))}
                       </select>
@@ -150,12 +176,14 @@ export default function RSVPModal({ isOpen, onClose }: RSVPModalProps) {
                     <div>
                       <label className="flex items-center gap-2 text-xs font-sans font-bold uppercase tracking-widest text-brand-secondary mb-1.5">
                         <MessageSquare size={14} />
-                        <span>رسالة (اختياري)</span>
+                        <span>{text("رسالة (اختياري)", "Message (facultatif)")}</span>
                       </label>
                       <textarea
                         value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        placeholder="كلمة حلوة تفرحنا..."
+                        onChange={(e) =>
+                          setFormData({ ...formData, message: e.target.value })
+                        }
+                        placeholder={text("كلمة حلوة تفرحنا...", "Un joli mot pour nous...")}
                         rows={3}
                         className="w-full px-4 py-2.5 sm:py-3 bg-white/90 border border-brand-border/50 rounded-xl font-arabic text-base sm:text-sm text-brand-primary placeholder:text-brand-border focus:outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition-all resize-none"
                       />
@@ -172,13 +200,17 @@ export default function RSVPModal({ isOpen, onClose }: RSVPModalProps) {
                       {isSubmitting ? (
                         <motion.div
                           animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          transition={{
+                            duration: 1,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
                           className="w-4 h-4 border-2 border-brand-bg/30 border-t-brand-bg rounded-full"
                         />
                       ) : (
                         <>
                           <Send size={14} />
-                          <span>تأكيد الحضور</span>
+                          <span>{text("تأكيد الحضور", "Confirmer ma présence")}</span>
                         </>
                       )}
                     </motion.button>
@@ -210,7 +242,10 @@ export default function RSVPModal({ isOpen, onClose }: RSVPModalProps) {
                         }}
                         className="absolute top-1/2 left-1/2"
                       >
-                        <Sparkles size={12 + Math.random() * 8} className="text-brand-accent" />
+                        <Sparkles
+                          size={12 + Math.random() * 8}
+                          className="text-brand-accent"
+                        />
                       </motion.div>
                     ))}
                   </div>
@@ -218,22 +253,37 @@ export default function RSVPModal({ isOpen, onClose }: RSVPModalProps) {
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    transition={{ type: "spring", damping: 10, stiffness: 200, delay: 0.15 }}
+                    transition={{
+                      type: "spring",
+                      damping: 10,
+                      stiffness: 200,
+                      delay: 0.15,
+                    }}
                     className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-green-50 border-2 border-green-200 flex items-center justify-center mx-auto mb-5"
                   >
-                    <UserCheck size={30} className="text-green-600" strokeWidth={1.5} />
+                    <UserCheck
+                      size={30}
+                      className="text-green-600"
+                      strokeWidth={1.5}
+                    />
                   </motion.div>
 
                   <h3 className="font-arabic text-xl sm:text-2xl font-bold text-brand-primary mb-2">
-                    تم تأكيد حضورك! 🎉
+                    {text("تم تأكيد حضورك! 🎉", "Votre présence est confirmée ! 🎉")}
                   </h3>
                   <p className="font-arabic text-sm text-brand-secondary mb-1">
-                    شكراً <span className="font-bold text-brand-accent">{formData.name}</span>
+                    {text("شكراً", "Merci")}{" "}
+                    <span className="font-bold text-brand-accent">
+                      {formData.name}
+                    </span>
                   </p>
                   <p className="font-arabic text-xs sm:text-sm text-brand-secondary">
                     {formData.guests === 1
-                      ? "بانتظارك يوم الفرحة"
-                      : `بانتظاركم (${formData.guests} أشخاص) يوم الفرحة`}
+                      ? text("بانتظارك يوم الفرحة", "Nous vous attendons le jour du mariage")
+                      : text(
+                          `بانتظاركم (${formData.guests} أشخاص) يوم الفرحة`,
+                          `Nous vous attendons le jour du mariage (${formData.guests} personnes)`,
+                        )}
                   </p>
 
                   <motion.button
@@ -242,7 +292,7 @@ export default function RSVPModal({ isOpen, onClose }: RSVPModalProps) {
                     onClick={handleClose}
                     className="mt-6 sm:mt-8 px-8 py-3 bg-brand-faint text-brand-primary text-[11px] uppercase tracking-[0.2em] font-sans font-bold border border-brand-border/50 rounded-full hover:bg-brand-border/30 transition-colors cursor-pointer"
                   >
-                    إغلاق
+                    {text("إغلاق", "Fermer")}
                   </motion.button>
                 </motion.div>
               )}

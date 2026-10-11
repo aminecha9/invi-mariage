@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useLanguage } from "../i18n";
 
 interface TimeUnit {
   value: number;
@@ -61,6 +62,7 @@ function Separator() {
 }
 
 export default function Countdown() {
+  const { text } = useLanguage();
   const targetDate = new Date("2026-10-31T19:00:00").getTime();
 
   const [timeLeft, setTimeLeft] = useState({
@@ -97,10 +99,10 @@ export default function Countdown() {
   }, [targetDate]);
 
   const units: TimeUnit[] = [
-    { value: timeLeft.days, label: "Days", labelAr: "يوم" },
-    { value: timeLeft.hours, label: "Hours", labelAr: "ساعة" },
-    { value: timeLeft.minutes, label: "Minutes", labelAr: "دقيقة" },
-    { value: timeLeft.seconds, label: "Seconds", labelAr: "ثانية" },
+    { value: timeLeft.days, label: "Days", labelAr: text("يوم", "Jour") },
+    { value: timeLeft.hours, label: "Hours", labelAr: text("ساعة", "Heure") },
+    { value: timeLeft.minutes, label: "Minutes", labelAr: text("دقيقة", "Minute") },
+    { value: timeLeft.seconds, label: "Seconds", labelAr: text("ثانية", "Seconde") },
   ];
 
   return (

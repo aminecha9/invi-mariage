@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "motion/react";
+import { useLanguage } from "../i18n";
 import {
   Heart,
   CalendarPlus,
@@ -24,6 +25,7 @@ const MONTH_NAMES_AR = [
 ];
 
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const DAY_NAMES_FR = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
 const DAY_NAMES_AR = [
   "أحد",
   "إثنين",
@@ -77,6 +79,7 @@ function generateICSFile(): void {
 }
 
 export default function InteractiveCalendar() {
+  const { text, language } = useLanguage();
   const [currentMonth, setCurrentMonth] = useState(9); // October (0-indexed)
   const [currentYear, setCurrentYear] = useState(2026);
   const [saved, setSaved] = useState(false);
@@ -137,7 +140,7 @@ export default function InteractiveCalendar() {
         CALENDAR
       </h2>
       <h3 className="font-arabic text-2xl sm:text-3xl font-bold text-brand-accent mb-6 sm:mb-8">
-        احفظ الموعد
+        {text("احفظ الموعد", "Enregistrer la date")}
       </h3>
 
       {/* Calendar Card */}
@@ -162,7 +165,11 @@ export default function InteractiveCalendar() {
               {currentYear}
             </div>
             <div className="font-arabic text-xs sm:text-sm text-brand-accent font-bold mt-0.5">
-              {MONTH_NAMES_AR[currentMonth]} {currentYear}
+              {language === "ar"
+                ? `${MONTH_NAMES_AR[currentMonth]} ${currentYear}`
+                : new Date(currentYear, currentMonth).toLocaleDateString("fr-FR", {
+                    month: "long",
+                  })}
             </div>
           </div>
 
@@ -182,7 +189,7 @@ export default function InteractiveCalendar() {
           {DAY_NAMES.map((day, i) => (
             <div key={day} className="text-center py-0.5 sm:py-1">
               <div className="text-[8px] sm:text-[9px] font-sans font-bold uppercase tracking-wider text-brand-secondary">
-                {day}
+                {language === "ar" ? day : DAY_NAMES_FR[i]}
               </div>
               <div className="text-[8px] sm:text-[9px] font-arabic text-brand-accent/80 font-bold">
                 {DAY_NAMES_AR[i]}
@@ -238,13 +245,13 @@ export default function InteractiveCalendar() {
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-3 rounded-xs bg-brand-accent shadow-xs" />
             <span className="text-[10px] font-arabic font-medium text-brand-secondary">
-              يوم الزفاف
+              {text("يوم الزفاف", "Jour du mariage")}
             </span>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-3 rounded-xs border border-brand-primary/30 bg-brand-primary/10" />
             <span className="text-[10px] font-arabic font-medium text-brand-secondary">
-              اليوم الحالي
+              {text("اليوم الحالي", "Aujourd'hui")}
             </span>
           </div>
         </div>
@@ -266,7 +273,9 @@ export default function InteractiveCalendar() {
         ) : (
           <CalendarPlus size={16} strokeWidth={1.8} />
         )}
-        {saved ? "تم الحفظ بنجاح" : "حفظ في التقويم"}
+        {saved
+          ? text("تم الحفظ بنجاح", "Date enregistrée")
+          : text("حفظ في التقويم", "Ajouter au calendrier")}
       </motion.button>
     </motion.section>
   );

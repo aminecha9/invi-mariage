@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { motion } from "motion/react";
 import { BookHeart, Send, Heart, User, CheckCircle } from "lucide-react";
 import { saveMessage } from "../utils/guestbookStorage";
+import { useLanguage } from "../i18n";
 
 export default function Guestbook() {
+  const { text } = useLanguage();
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -51,10 +53,10 @@ export default function Guestbook() {
         GUESTBOOK
       </h2>
       <h3 className="font-arabic text-2xl sm:text-3xl font-bold text-brand-accent mb-2">
-        دفتر التهاني
+        {text("دفتر التهاني", "Livre d'or")}
       </h3>
       <p className="font-arabic text-xs sm:text-sm text-brand-secondary max-w-sm mx-auto mb-6 sm:mb-8 font-medium">
-        اكتب لنا كلمة حلوة تفرحنا 💕
+        {text("اكتب لنا كلمة حلوة تفرحنا 💕", "Écrivez-nous un joli mot 💕")}
       </p>
 
       {!isSubmitted ? (
@@ -72,14 +74,14 @@ export default function Guestbook() {
             <div className="mb-4">
               <label className="flex items-center gap-1.5 text-[10px] font-sans font-bold uppercase tracking-widest text-brand-secondary mb-1.5">
                 <User size={12} />
-                <span>الاسم</span>
+                <span>{text("الاسم", "Nom")}</span>
               </label>
               <input
                 type="text"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="اكتب اسمك"
+                placeholder={text("اكتب اسمك", "Écrivez votre nom")}
                 className="w-full px-4 py-2.5 sm:py-3 bg-white/90 border border-brand-border/50 rounded-xl font-arabic text-base sm:text-sm text-brand-primary placeholder:text-brand-border focus:outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition-all"
               />
             </div>
@@ -88,13 +90,13 @@ export default function Guestbook() {
             <div className="mb-4 sm:mb-5">
               <label className="flex items-center gap-1.5 text-[10px] font-sans font-bold uppercase tracking-widest text-brand-secondary mb-1.5">
                 <Heart size={12} />
-                <span>التهنئة</span>
+                <span>{text("التهنئة", "Message")}</span>
               </label>
               <textarea
                 required
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="اكتب تهنئتك هنا..."
+                placeholder={text("اكتب تهنئتك هنا...", "Écrivez votre message...")}
                 rows={3}
                 className="w-full px-4 py-2.5 sm:py-3 bg-white/90 border border-brand-border/50 rounded-xl font-arabic text-base sm:text-sm text-brand-primary placeholder:text-brand-border focus:outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition-all resize-none"
               />
@@ -117,7 +119,7 @@ export default function Guestbook() {
               ) : (
                 <>
                   <Send size={14} />
-                  <span>إرسال التهنئة</span>
+                  <span>{text("إرسال التهنئة", "Envoyer le message")}</span>
                 </>
               )}
             </motion.button>
@@ -142,10 +144,10 @@ export default function Guestbook() {
             </motion.div>
 
             <h4 className="font-arabic text-lg sm:text-xl font-bold text-brand-primary mb-1">
-              تم إرسال تهنئتك بنجاح 💌
+              {text("تم إرسال تهنئتك بنجاح 💌", "Votre message a été envoyé 💌")}
             </h4>
             <p className="font-arabic text-xs sm:text-sm text-brand-secondary mb-6">
-              شكراً لكلماتك الحلوة، هتوصل للعروسين مباشرة
+              {text("شكراً لكلماتك الحلوة، هتوصل للعروسين مباشرة", "Merci pour vos gentils mots, les mariés les recevront directement")}
             </p>
 
             <motion.button
@@ -154,7 +156,7 @@ export default function Guestbook() {
               onClick={handleSendAnother}
               className="px-6 sm:px-8 py-2.5 bg-brand-faint text-brand-primary text-[11px] uppercase tracking-[0.2em] font-sans font-bold border border-brand-border/50 rounded-full hover:bg-brand-border/30 transition-colors cursor-pointer"
             >
-              إرسال تهنئة أخرى
+              {text("إرسال تهنئة أخرى", "Envoyer un autre message")}
             </motion.button>
           </div>
         </motion.div>

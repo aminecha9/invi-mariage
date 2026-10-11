@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Music, Pause, Play, Volume2 } from "lucide-react";
 import { motion } from "motion/react";
+import { useLanguage } from "../i18n";
 
 interface AudioPlayerProps {
   isPlaying: boolean;
@@ -54,6 +55,7 @@ function formatTime(seconds: number): string {
 }
 
 export default function AudioPlayer({ isPlaying, onToggle, audioRef }: AudioPlayerProps) {
+  const { text } = useLanguage();
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -132,7 +134,7 @@ export default function AudioPlayer({ isPlaying, onToggle, audioRef }: AudioPlay
             <EqualizerBars isPlaying={isPlaying} />
             <div className="min-w-0 flex-1">
               <div className="text-[8px] uppercase tracking-[0.2em] font-sans font-bold text-brand-secondary">
-                {isPlaying ? "شغالة الآن" : "موسيقى الدعوة"}
+                {isPlaying ? text("شغالة الآن", "Lecture en cours") : text("موسيقى الدعوة", "Musique de l'invitation")}
               </div>
               <div className="text-xs font-arabic text-brand-primary font-bold truncate">
                 الليل وسماه

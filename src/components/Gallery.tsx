@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Heart, Maximize2 } from "lucide-react";
+import { useLanguage } from "../i18n";
 import photo1 from "../assets/Photo 1.png";
 import photo2 from "../assets/Photo 2.png";
 
@@ -9,8 +10,11 @@ interface PhotoItem {
   src: string;
   title: string;
   titleEn: string;
+  titleFr: string;
   caption: string;
+  captionFr: string;
   tag: string;
+  tagFr: string;
   year?: string;
 }
 
@@ -20,16 +24,22 @@ const galleryPhotos: PhotoItem[] = [
     src: photo1,
     title: "بداية الحكاية",
     titleEn: "Sweet Childhood",
+    titleFr: "Notre histoire",
     caption: "ذكريات طفولة بريئة كانت أول سطور في أجمل قصة حب",
+    captionFr: "De doux souvenirs d'enfance, les premières lignes de notre histoire d'amour",
     tag: "Then • طفولتنا",
+    tagFr: "Then • Notre enfance",
   },
   {
     id: "photo-2",
     src: photo2,
     title: "فرحتنا اليوم",
     titleEn: "Wedding Day",
+    titleFr: "Notre bonheur aujourd'hui",
     caption: "واليوم نحتفل معًا ببداية حياتنا نحو المستقبل والأبد",
+    captionFr: "Aujourd'hui, nous célébrons ensemble le début de notre vie à deux",
     tag: "Now • زفافنا",
+    tagFr: "Now • Notre mariage",
   },
 ];
 
@@ -79,6 +89,7 @@ const OrnateFloralDivider = ({ className = "" }: { className?: string }) => (
 );
 
 export default function Gallery() {
+  const { language, text } = useLanguage();
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoItem | null>(null);
   const [likes, setLikes] = useState<{ [key: string]: number }>({
     "photo-1": 128,
@@ -119,11 +130,11 @@ export default function Gallery() {
         </h2>
 
         <h3 className="font-arabic text-2xl sm:text-4xl font-bold text-brand-accent mt-1 mb-2">
-          ذكرياتنا الجميلة
+          {text("ذكرياتنا الجميلة", "Nos beaux souvenirs")}
         </h3>
 
         <p className="font-arabic text-brand-secondary text-xs sm:text-base max-w-md mx-auto font-medium">
-          "من طفولة بريئة ملؤها المحبة.. إلى موعد جمعنا على طريق العمر"
+          {text('"من طفولة بريئة ملؤها المحبة.. إلى موعد جمعنا على طريق العمر"', '"D’une enfance pleine d’amour à ce rendez-vous qui nous unit pour la vie"')}
         </p>
 
         <div className="w-16 h-[1px] bg-brand-border/60 mt-4 mb-2"></div>
@@ -145,7 +156,7 @@ export default function Gallery() {
             {/* Top Ornate Pin / Badge */}
             <div className="w-full flex items-center justify-between mb-3 px-1">
               <span className="text-[10px] sm:text-[11px] font-sans font-bold tracking-widest text-brand-accent uppercase bg-brand-accent/10 px-2.5 sm:px-3 py-1 rounded-full border border-brand-accent/30">
-                {photo.tag}
+                {language === "ar" ? photo.tag : photo.tagFr}
               </span>
 
               {/* Interactive Like Button */}
@@ -194,7 +205,7 @@ export default function Gallery() {
                   <Maximize2 size={18} strokeWidth={1.8} />
                 </div>
                 <span className="text-[10px] sm:text-[11px] font-sans font-semibold tracking-wider text-white uppercase bg-black/50 px-3 py-1 rounded-full backdrop-blur-xs">
-                  اضغط للتكبير
+                  {text("اضغط للتكبير", "Cliquer pour agrandir")}
                 </span>
               </div>
             </div>
@@ -202,13 +213,13 @@ export default function Gallery() {
             {/* Captions & Typography */}
             <div className="w-full mt-4 sm:mt-5 text-center flex flex-col items-center">
               <h3 className="font-arabic text-xl sm:text-2xl font-bold text-brand-primary mb-0.5 sm:mb-1">
-                {photo.title}
+                {language === "ar" ? photo.title : photo.titleFr}
               </h3>
               <span className="font-serif italic text-[11px] sm:text-xs text-brand-accent tracking-widest uppercase mb-1.5 sm:mb-2">
                 {photo.titleEn}
               </span>
               <p className="font-arabic text-xs sm:text-sm text-brand-secondary leading-relaxed px-1 font-medium">
-                {photo.caption}
+                {language === "ar" ? photo.caption : photo.captionFr}
               </p>
             </div>
           </motion.div>

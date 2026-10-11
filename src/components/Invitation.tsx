@@ -7,9 +7,11 @@ import Gallery from "./Gallery";
 import InteractiveCalendar from "./InteractiveCalendar";
 import RSVPModal from "./RSVPModal";
 import Guestbook from "./Guestbook";
+import { useLanguage } from "../i18n";
 
 export default function Invitation() {
   const [isRSVPOpen, setIsRSVPOpen] = useState(false);
+  const { text, direction } = useLanguage();
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
@@ -55,14 +57,16 @@ export default function Invitation() {
           className="mb-14 sm:mb-20 mt-4 sm:mt-8 w-full max-w-2xl px-2"
         >
           <div className="inline-block mb-6 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-xs border border-brand-border/40 text-brand-accent text-xs font-bold tracking-widest uppercase">
-            بسم الله الرحمن الرحيم
+            {text("بسم الله الرحمن الرحيم", "Au nom de Dieu, le Tout Miséricordieux, le Très Miséricordieux")}
           </div>
           <p className="font-arabic text-lg sm:text-2xl md:text-3xl text-brand-primary leading-relaxed sm:leading-loose font-bold">
-            "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا
-            لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً"
+            {text(
+              '"وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً"',
+              '"Et parmi Ses signes, Il a créé pour vous des épouses afin que vous trouviez auprès d’elles tranquillité, et Il a établi entre vous affection et miséricorde."',
+            )}
           </p>
           <p className="font-arabic text-xs sm:text-sm text-brand-secondary mt-5 tracking-[0.15em] font-bold">
-            — صدق الله العظيم —
+            {text("— صدق الله العظيم —", "— Parole véridique de Dieu —")}
           </p>
         </motion.div>
 
@@ -80,9 +84,9 @@ export default function Invitation() {
 
           <h2
             className="font-arabic text-base sm:text-xl text-brand-primary font-extrabold tracking-[0.2em] mb-8 sm:mb-12 uppercase"
-            dir="rtl"
+            dir={direction}
           >
-            نتشرف بدعوتكم لحضور حفل خطوبتنا
+            {text("نتشرف بدعوتكم لحضور حفل زواجنا", "Nous avons l'honneur de vous inviter à notre mariage")}
           </h2>
 
           <div className="relative inline-block w-full max-w-lg mt-2 sm:mt-6">
@@ -113,7 +117,7 @@ export default function Invitation() {
 
           {/* Arabic Date */}
           <h3 className="font-arabic text-2xl sm:text-4xl font-bold text-brand-primary mb-2">
-            السبت، ٣١ أكتوبر ٢٠٢٦
+            {text("السبت، 31 أكتوبر 2026", "Samedi 31 octobre 2026")}
           </h3>
 
           {/* English Date with strict LTR isolation */}
@@ -151,10 +155,10 @@ export default function Invitation() {
             RSVP
           </h2>
           <h3 className="font-arabic text-2xl sm:text-3xl font-bold text-brand-accent mb-3">
-            تأكيد الحضور
+            {text("تأكيد الحضور", "Confirmation de présence")}
           </h3>
           <p className="font-arabic text-sm text-brand-secondary max-w-sm mx-auto mb-8 font-medium px-4">
-            سعادتنا تكتمل بوجودكم، شاركونا فرحتنا وأكدوا حضوركم
+            {text("سعادتنا تكتمل بوجودكم، شاركونا فرحتنا وأكدوا حضوركم", "Notre bonheur sera complet avec vous. Partagez notre joie et confirmez votre présence.")}
           </p>
 
           <motion.button
@@ -164,7 +168,7 @@ export default function Invitation() {
             className="flex items-center gap-3 px-8 sm:px-12 py-3.5 sm:py-4 bg-brand-primary text-brand-bg text-[11px] sm:text-xs uppercase tracking-[0.3em] font-sans font-bold hover:bg-brand-accent transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer border-none rounded-full"
           >
             <UserCheck size={18} strokeWidth={1.8} />
-            أكّد حضورك
+            {text("أكّد حضورك", "Confirmer ma présence")}
           </motion.button>
         </motion.div>
 
@@ -189,22 +193,22 @@ export default function Invitation() {
                 The Venue
               </div>
               <div className="text-sm font-sans font-bold text-brand-primary mt-0.5">
-                فضاء مريم، صفاقس
+                {text("فضاء مريم، صفاقس", "Espace Mariem, Sfax")}
               </div>
             </div>
           </div>
 
           <p className="font-arabic text-lg sm:text-2xl text-brand-primary font-medium mb-8 leading-relaxed max-w-lg px-4">
-            بكل الحب ننتظركم لتشاركونا فرحتنا يوم السبت ٣١ أكتوبر ٢٠٢٦،
+            {text("بكل الحب ننتظركم لتشاركونا فرحتنا يوم السبت 31 أكتوبر 2026", "C'est avec tout notre amour que nous vous attendons pour partager notre joie le samedi 31 octobre 2026")}
             <br />
-            في فضاء مريم، صفاقس، طريق المهدية، كم ١٠، تونس.
+            {text("في فضاء مريم، صفاقس، طريق المهدية، كم 10، تونس.", "À l'Espace Mariem, Sfax, route de Mahdia, km 10, Tunisie.")}
           </p>
 
           {/* Map */}
           <div className="w-full max-w-2xl h-64 sm:h-80 md:h-96 bg-brand-bg relative mb-8 border border-brand-border/60 overflow-hidden rounded-2xl shadow-md">
             <div className="absolute inset-0 border-[6px] sm:border-[10px] border-brand-bg/30 z-10 pointer-events-none rounded-2xl"></div>
             <iframe
-              title="موقع الحفل على الخريطة"
+              title={text("موقع الحفل على الخريطة", "Lieu de la cérémonie sur la carte")}
               src="https://www.google.com/maps?q=Complexe+Mariem,+Sfax,+Mahdia+Road,+KM+10,+Tunisia&output=embed"
               width="100%"
               height="100%"
@@ -223,7 +227,7 @@ export default function Invitation() {
             className="inline-flex items-center gap-2.5 px-8 sm:px-10 py-3.5 sm:py-4 bg-brand-primary text-brand-bg text-[11px] sm:text-xs uppercase tracking-[0.25em] font-sans font-bold hover:bg-brand-accent transition-all duration-300 rounded-full shadow-md hover:shadow-xl"
           >
             <Navigation size={16} />
-            الوصول عبر الخريطة
+            {text("الوصول عبر الخريطة", "Itinéraire")}
           </a>
         </motion.div>
 
@@ -245,7 +249,7 @@ export default function Invitation() {
             Thank You
           </p>
           <p className="font-arabic text-base sm:text-lg text-brand-accent font-bold tracking-[0.15em] z-10 relative">
-            عقبال عندكم جميعاً 💕
+            {text("عقبال عندكم جميعاً 💕", "Que votre tour arrive bientôt à tous 💕")}
           </p>
         </motion.div>
       </div>

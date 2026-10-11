@@ -5,6 +5,7 @@ import Invitation from "./components/Invitation";
 import AudioPlayer from "./components/AudioPlayer";
 import ringsBg from "./assets/rings.png";
 import musicTrack from "./assets/el-leil-we-samah.mpeg";
+import { LanguageProvider } from "./i18n";
 
 export default function App() {
   const [isOpened, setIsOpened] = useState(false);
@@ -35,7 +36,8 @@ export default function App() {
   }, []);
 
   return (
-    <main 
+    <LanguageProvider>
+      <main 
       className="relative min-h-screen font-serif text-brand-primary selection:bg-brand-accent selection:text-brand-bg bg-cover bg-center bg-no-repeat bg-fixed"
       style={{ backgroundImage: `linear-gradient(rgba(252, 249, 245, 0.60), rgba(252, 249, 245, 0.60)), url('${ringsBg}')` }}
     >
@@ -53,6 +55,7 @@ export default function App() {
           <AudioPlayer isPlaying={isPlaying} onToggle={toggleAudio} audioRef={audioRef} />
         </>
       )}
-    </main>
+      </main>
+    </LanguageProvider>
   );
 }
