@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { Languages } from "lucide-react";
 import Sparkles from "./Sparkles";
 import ringsBg from "../assets/rings.png";
 import type { Key } from "react";
@@ -55,10 +56,15 @@ export default function Cover({ onOpen }: CoverProps) {
         onClick={toggleLanguage}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="absolute top-5 right-5 sm:top-8 sm:right-8 z-30 rounded-full border border-brand-border/60 bg-white/70 px-4 py-2 text-[10px] font-sans font-bold tracking-[0.2em] text-brand-primary shadow-sm backdrop-blur-md transition-colors hover:bg-brand-primary hover:text-brand-bg cursor-pointer"
+        className="group absolute top-4 right-4 sm:top-7 sm:right-7 z-30 flex items-center gap-2 rounded-full border-2 border-brand-accent bg-brand-primary px-3.5 py-2.5 text-[10px] font-sans font-bold tracking-[0.12em] text-brand-bg shadow-[0_5px_18px_rgba(61,51,45,0.22)] backdrop-blur-md transition-all hover:border-brand-primary hover:bg-brand-accent hover:shadow-[0_7px_22px_rgba(61,51,45,0.28)] cursor-pointer"
         aria-label={language === "ar" ? "Passer au français" : "Passer à l'arabe"}
       >
-        {language === "ar" ? "FR" : "AR"}
+        <Languages
+          aria-hidden="true"
+          className="h-4 w-4 shrink-0 text-brand-accent transition-colors group-hover:text-brand-primary"
+          strokeWidth={2.25}
+        />
+        <span>{language === "ar" ? "Français" : "العربية"}</span>
       </motion.button>
       {/* Responsive Decorative Corners */}
       <motion.div
