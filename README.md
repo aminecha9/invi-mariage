@@ -135,6 +135,22 @@ The app will be running at **http://localhost:3000/Engagement/** 🎉
 | `npm run lint`    | Run TypeScript type-checking                   |
 | `npm run clean`   | Remove build artifacts                         |
 
+### RSVP email notifications
+
+RSVP confirmations are saved locally and also send an email notification through a
+Netlify Function and [Resend](https://resend.com/). Add these environment variables
+in the Netlify site settings:
+
+```bash
+RESEND_API_KEY="..."
+RESEND_FROM_EMAIL="RSVP <noreply@your-domain.com>"
+RSVP_NOTIFICATION_RECIPIENTS="aminechakroun45@gmail.com,emnabenali0128@gmail.com"
+```
+
+`RESEND_FROM_EMAIL` must use a verified domain in Resend. The two recipient addresses
+above receive every confirmation. The RSVP is still recorded if Resend is unavailable,
+and the confirmation screen will indicate that the notification could not be sent.
+
 ---
 
 ## 🎯 Design Philosophy

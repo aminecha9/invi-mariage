@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { saveRSVP } from "../utils/rsvpStorage";
 import { saveMessage } from "../utils/guestbookStorage";
+import { sendRSVPNotification } from "../utils/emailNotification";
 import { useLanguage } from "../i18n";
 
 interface RSVPData {
@@ -32,24 +33,31 @@ export default function RSVPModal({ isOpen, onClose }: RSVPModalProps) {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [emailError, setEmailError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim()) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      // Save real RSVP entry
-      saveRSVP(formData.name, formData.guests, formData.message);
+    setEmailError(false);
 
-      // Also save to guestbook if message is written
-      if (formData.message.trim()) {
-        saveMessage(formData.name, formData.message);
-      }
+    // Save the RSVP locally so the confirmation is not lost if email delivery fails.
+    saveRSVP(formData.name, formData.guests, formData.message);
 
+    if (formData.message.trim()) {
+      saveMessage(formData.name, formData.message);
+    }
+
+    try {
+      await sendRSVPNotification(formData);
+    } catch (error) {
+      console.error("Unable to send RSVP notification email.", error);
+      setEmailError(true);
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 600);
+    }
   };
 
   const handleClose = () => {
@@ -57,6 +65,7 @@ export default function RSVPModal({ isOpen, onClose }: RSVPModalProps) {
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({ name: "", guests: 1, message: "" });
+      setEmailError(false);
     }, 300);
   };
 
@@ -285,6 +294,14 @@ export default function RSVPModal({ isOpen, onClose }: RSVPModalProps) {
                           `Nous vous attendons le jour du mariage (${formData.guests} personnes)`,
                         )}
                   </p>
+                  {emailError && (
+                    <p className="font-arabic text-xs text-amber-700 mt-3">
+                        {text(
+                          "تم تسجيل حضورك، لكن تعذر إرسال إشعار بالبريد الإلكتروني.",
+                          "Votre présence est enregistrée, mais l’e-mail de notification n’a pas pu être envoyé.",
+                        )}
+                    </p>
+                  )}
 
                   <motion.button
                     whileHover={{ scale: 1.03 }}
